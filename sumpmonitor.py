@@ -54,7 +54,7 @@ os.system('echo "Starting monitoring of Sump Pump" | mail -s "Starting monitorin
 while True:
 	now = datetime.datetime.now()
 
-	if ( (now - lastMonitorFileTouch) > timeBetweenMonitorUpdates ) 
+	if ( (now - lastMonitorFileTouch) > timeBetweenMonitorUpdates ): 
 		os.system('touch /mnt/zfs500raidz/sumpMonitor.touch')
 
 	if ( now.time() > monitorTime and sendOkMsg == False):
@@ -67,6 +67,3 @@ while True:
 	else:
 		logger.debug("time thread: nothing to do " + str(now) + '\n')		
 	time.sleep(60)
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              sys.stdout.write
-
-logger.info
