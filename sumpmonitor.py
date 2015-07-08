@@ -6,6 +6,8 @@ import sys
 import time
 import logging
 
+# SYSTEM REQUIREMENTS: mail.mailutils and configured for gmail relay e.g. https://wiki.debian.org/GmailAndExim4
+
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = logging.FileHandler('/var/log/sump.alarm.log')
@@ -19,6 +21,7 @@ GPIO.setup(23, GPIO.IN)
 
 
 def alarmThread():
+	logger.info("starting alarm thread" + '\n')
 	pressed = False
 
 	while True:
@@ -55,6 +58,7 @@ while True:
 	now = datetime.datetime.now()
 
 	if ( (now - lastMonitorFileTouch) > timeBetweenMonitorUpdates ): 
+		logger.debug("touching sumpMonitor.touch file" + '\n')
 		os.system('touch /mnt/zfs500raidz/sumpMonitor.touch')
 
 	if ( now.time() > monitorTime and sendOkMsg == False):
@@ -66,4 +70,4 @@ while True:
 		logger.info("reset monitor message trigger flag" + '\n')
 	else:
 		logger.debug("time thread: nothing to do " + str(now) + '\n')		
-	time.sleep(60)
+	time.sleep(15)
